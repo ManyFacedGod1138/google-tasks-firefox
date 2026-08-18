@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="dashboard.css">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Task Statistics</title>
 </head>
+
 <body>
-    <h1>Google Task Statistics</h1>
-    <p>This will become the main dashboard.</p>
+    <header>
+        <h1>Google Task Statistics</h1>
+    </header>
+
+    <main>
+        <aside>
+            <h2>Task Lists</h2>
+
+            <nav>
+                <ul>
+                    <li>
+                        <button type="button">My Tasks</button>
+                    </li>
+                    <li>
+                        <button type="button">Work</button>
+                    </li>
+                    <li>
+                        <button type="button">Personal</button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <section>
+            <h2>Tasks</h2>
+
+            <ul>
+                <li>
+                    <input type="checkbox" id="task-1">
+                    <label for="task-1">Example task</label>
+                </li>
+
+                <li>
+                    <input type="checkbox" id="task-2">
+                    <label for="task-2">Another example task</label>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Statistics</h2>
+
+            <p>Completed tasks: 0</p>
+            <p>Pending tasks: 2</p>
+
+            <div>
+                Chart placeholder
+            </div>
+        </section>
+    </main>
 </body>
 </html>
