@@ -1,6 +1,11 @@
-const button = document.getElementById("test-button");
-const status = document.getElementById("status");
+const openDashboardButton = document.getElementById("open-dashboard");
 
-button.addEventListener("click", () => {
-    status.textContent = "Status: Button clicked";
+openDashboardButton.addEventListener("click", () => {
+    const dashboardUrl = browser.runtime.getURL(
+        "dashboard/dashboard.html"
+    );
+
+    browser.tabs.create({
+        url: dashboardUrl
+    });
 });
