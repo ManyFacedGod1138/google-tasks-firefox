@@ -1,0 +1,29 @@
+{
+  "name": "google-tasks-firefox",
+  "version": "0.0.1",
+  "description": "Firefox extension for Google Tasks",
+  "keywords": [
+    "firefox",
+    "extension",
+    "google",
+    "tasks"
+  ],
+  "homepage": "https://github.com/ManyFacedGod1138/google-tasks-firefox#readme",
+  "bugs": {
+    "url": "https://github.com/ManyFacedGod1138/google-tasks-firefox/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ManyFacedGod1138/google-tasks-firefox.git"
+  },
+  "license": "MIT",
+  "author": "ManyFacedGod1138",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
