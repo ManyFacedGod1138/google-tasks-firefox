@@ -1,4 +1,4 @@
-import type { Task } from "./task.js";
+import type { Task, CreateTaskInput } from "./task.js";
 import { tasks as fakeTasks } from "./fakeTasks.js";
 
 let tasks: Task[] = [...fakeTasks];
@@ -43,16 +43,19 @@ async function saveTasks(): Promise<void> {
     });
 }
 
-export async function addTask(title: string): Promise<void> {
+export async function addTask(
+    input: CreateTaskInput
+): Promise<void> {
     const newTask: Task = {
         id: crypto.randomUUID(),
-        title,
+        title: input.title,
+        details: input.details,
+        dueDate: input.dueDate,
         completed: false,
         taskListId: selectedTaskListId
     };
 
     tasks.push(newTask);
-
     await saveTasks();
 }
 

@@ -24,16 +24,45 @@
 
         <section>
             <h2>Tasks</h2>
-                
+            <button id="open-new-task-dialog" type="button">
+                Add task
+            </button>
+
+            <dialog id="new-task-dialog">
                 <form id="new-task-form">
-                <input
-                    id="new-task-title"
-                    type="text"
-                    placeholder="New task title"
-                    required
-                >
-                <button type="submit">Add Task</button>
+                    <h2>Create task</h2>
+
+                    <label for="new-task-title">Title</label>
+                    <input
+                        id="new-task-title"
+                        type="text"
+                        required
+                    >
+
+                    <label for="new-task-details">Details</label>
+                    <textarea id="new-task-details"></textarea>
+
+                    <label for="new-task-due-date">Due date</label>
+                    <input
+                        id="new-task-due-date"
+                        type="date"
+                    >
+
+                    <div class="form-actions">
+                    
+                    <button
+                        id="cancel-new-task"
+                        type="button"
+                    >
+                        Cancel
+                    </button>
+
+                    <button type="submit">
+                        Create task
+                    </button>
+                </div>
                 </form>
+            </dialog>
 
                 <ul id="task-list"></ul>
         </section>

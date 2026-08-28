@@ -16,11 +16,43 @@ const taskList = document.getElementById("task-list");
 const completedCount = document.getElementById("completed-count");
 const pendingCount = document.getElementById("pending-count");
 const taskListNavigation = document.getElementById("task-list-navigation");
-const newTaskForm = document.getElementById("new-task-form");
+
+const newTaskForm = document.getElementById(
+    "new-task-form"
+) as HTMLFormElement | null;
+
 const newTaskTitle = document.getElementById(
     "new-task-title"
 ) as HTMLInputElement | null;
 
+
+const newTaskDialog = document.getElementById(
+    "new-task-dialog"
+) as HTMLDialogElement | null;
+
+const openNewTaskDialogButton = document.getElementById(
+    "open-new-task-dialog"
+);
+
+const cancelNewTaskButton = document.getElementById(
+    "cancel-new-task"
+);
+
+openNewTaskDialogButton?.addEventListener("click", () => {
+    newTaskDialog?.showModal();
+});
+
+cancelNewTaskButton?.addEventListener("click", () => {
+    newTaskDialog?.close();
+});
+
+const newTaskDetails = document.getElementById(
+    "new-task-details"
+) as HTMLTextAreaElement | null;
+
+const newTaskDueDate = document.getElementById(
+    "new-task-due-date"
+) as HTMLInputElement | null;
 
 newTaskForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -35,9 +67,13 @@ newTaskForm?.addEventListener("submit", async (event) => {
         return;
     }
 
-    await addTask(title);
-
-    newTaskTitle.value = "";
+    await addTask({
+        title,
+        details: newTaskDetails?.value.trim() || undefined,
+        dueDate: newTaskDueDate?.value || undefined
+    });
+    newTaskForm.reset();
+    newTaskDialog?.close();
 
     renderDashboard();
 });
@@ -138,5 +174,6 @@ function renderTaskLists(): void {
         taskListNavigation.appendChild(listItem);
     });
 }
+
 
 initializeDashboard();
