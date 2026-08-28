@@ -3,7 +3,8 @@ import {
     getSelectedTaskListId,
     getTasksForSelectedList,
     setSelectedTaskListId,
-    setTaskCompleted
+    setTaskCompleted,
+    addTask
 } from "../tasks/taskStore.js";
 
 import { taskLists } from "../tasks/fakeTaskLists.js";
@@ -13,6 +14,27 @@ const taskList = document.getElementById("task-list");
 const completedCount = document.getElementById("completed-count");
 const pendingCount = document.getElementById("pending-count");
 const taskListNavigation = document.getElementById("task-list-navigation");
+const newTaskForm = document.getElementById("new-task-form");
+const newTaskTitle = document.getElementById(
+    "new-task-title"
+) as HTMLInputElement | null;
+
+newTaskForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+  
+    if (!newTaskTitle) {
+        return;
+    }
+
+    const title = newTaskTitle?.value.trim();
+
+    addTask(title);
+
+    newTaskTitle.value = "";
+
+    renderDashboard();
+});
 
 function renderStatistics(): void {
     const tasks = getTasksForSelectedList();

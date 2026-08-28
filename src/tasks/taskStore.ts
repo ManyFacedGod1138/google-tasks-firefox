@@ -20,6 +20,17 @@ export function setTaskCompleted(
     task.completed = completed;
 }
 
+export function addTask(title: string): void {
+    const newTask: Task = {
+        id: crypto.randomUUID(),
+        title,
+        completed: false,
+        taskListId: selectedTaskListId
+    };
+
+    tasks.push(newTask);
+}
+
 export function getSelectedTaskListId(): string {
     return selectedTaskListId;
 }
