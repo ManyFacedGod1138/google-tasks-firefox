@@ -48,7 +48,7 @@ function renderTasks(): void {
 
         checkbox.addEventListener("change", () => {
             setTaskCompleted(task.id, checkbox.checked);
-            renderStatistics();
+            renderDashboard();
         });
 
         const label = document.createElement("span");
@@ -57,6 +57,12 @@ function renderTasks(): void {
         listItem.append(checkbox, label);
         taskList.appendChild(listItem);
     });
+}
+
+function renderDashboard(): void {
+    renderTaskLists();
+    renderTasks();
+    renderStatistics();
 }
 
 function renderTaskLists(): void {
@@ -81,10 +87,7 @@ function renderTaskLists(): void {
 
         button.addEventListener("click", () => {
             setSelectedTaskListId(taskList.id);
-
-            renderTaskLists();
-            renderTasks();
-            renderStatistics();
+            renderDashboard();
         });
 
         listItem.appendChild(button);
@@ -93,6 +96,4 @@ function renderTaskLists(): void {
 }
 
 
-renderTaskLists();
-renderTasks();
-renderStatistics();
+renderDashboard();

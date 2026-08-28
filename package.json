@@ -22,7 +22,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "watch": "tsc --watch"
   },
   "devDependencies": {
     "@types/firefox-webext-browser": "^143.0.0",

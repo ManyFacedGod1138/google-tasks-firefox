@@ -17,46 +17,26 @@
             <h2>Task Lists</h2>
 
             <nav>
-                <ul>
-                    <li>
-                        <button type="button">My Tasks</button>
-                    </li>
-                    <li>
-                        <button type="button">Work</button>
-                    </li>
-                    <li>
-                        <button type="button">Personal</button>
-                    </li>
-                </ul>
+                <ul id="task-list-navigation"></ul>
             </nav>
         </aside>
 
         <section>
             <h2>Tasks</h2>
-
-            <ul>
-                <li>
-                    <input type="checkbox" id="task-1">
-                    <label for="task-1">Example task</label>
-                </li>
-
-                <li>
-                    <input type="checkbox" id="task-2">
-                    <label for="task-2">Another example task</label>
-                </li>
-            </ul>
+                <ul id="task-list"></ul>
         </section>
 
         <section>
             <h2>Statistics</h2>
 
-            <p>Completed tasks: 0</p>
-            <p>Pending tasks: 2</p>
+            <p>Completed tasks: <span id="completed-count">0</span></p>
+            <p>Pending tasks: <span id="pending-count">0</span></p>
 
             <div>
                 Chart placeholder
             </div>
         </section>
     </main>
+    <script type ="module" src="../dist/dashboard/dashboard.js"></script>
 </body>
 </html>
