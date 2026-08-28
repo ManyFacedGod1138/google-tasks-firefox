@@ -1,5 +1,7 @@
 import type { Task } from "./task.js";
-import { tasks } from "./fakeTasks.js";
+import { tasks as fakeTasks } from "./fakeTasks.js";
+
+let tasks: Task[] = [...fakeTasks];
 
 let selectedTaskListId = "list-1";
 
@@ -7,28 +9,16 @@ export function getTasks(): Task[] {
     return tasks;
 }
 
-export function setTaskCompleted(
-    taskId: string,
-    completed: boolean
-): void {
-    const task = tasks.find((task) => task.id === taskId);
+export async function deleteTask(taskId: string): Promise<void> {
+    tasks = tasks.filter((task) => task.id !== taskId);
 
-    if (!task) {
-        return;
-    }
-
-    task.completed = completed;
+    await saveTasks();
 }
 
-export function addTask(title: string): void {
-    const newTask: Task = {
-        id: crypto.randomUUID(),
-        title,
-        completed: false,
-        taskListId: selectedTaskListId
-    };
-
-    tasks.push(newTask);
+export function getTasksForSelectedList(): Task[] {
+    return tasks.filter(
+        (task) => task.taskListId === selectedTaskListId
+    );
 }
 
 export function getSelectedTaskListId(): string {
@@ -39,8 +29,44 @@ export function setSelectedTaskListId(taskListId: string): void {
     selectedTaskListId = taskListId;
 }
 
-export function getTasksForSelectedList(): Task[] {
-    return tasks.filter(
-        (task) => task.taskListId === selectedTaskListId
-    );
+export async function loadTasks(): Promise<void> {
+    const result = await browser.storage.local.get("tasks");
+
+    if (Array.isArray(result.tasks)) {
+        tasks = result.tasks;
+    }
+}
+
+async function saveTasks(): Promise<void> {
+    await browser.storage.local.set({
+        tasks
+    });
+}
+
+export async function addTask(title: string): Promise<void> {
+    const newTask: Task = {
+        id: crypto.randomUUID(),
+        title,
+        completed: false,
+        taskListId: selectedTaskListId
+    };
+
+    tasks.push(newTask);
+
+    await saveTasks();
+}
+
+export async function setTaskCompleted(
+    taskId: string,
+    completed: boolean
+): Promise<void> {
+    const task = tasks.find((task) => task.id === taskId);
+
+    if (!task) {
+        return;
+    }
+
+    task.completed = completed;
+
+    await saveTasks();
 }

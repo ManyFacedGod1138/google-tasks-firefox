@@ -1,10 +1,12 @@
 import {
-    getTasks,
+    
     getSelectedTaskListId,
     getTasksForSelectedList,
     setSelectedTaskListId,
     setTaskCompleted,
-    addTask
+    addTask,
+    loadTasks,
+    deleteTask
 } from "../tasks/taskStore.js";
 
 import { taskLists } from "../tasks/fakeTaskLists.js";
@@ -19,22 +21,33 @@ const newTaskTitle = document.getElementById(
     "new-task-title"
 ) as HTMLInputElement | null;
 
-newTaskForm?.addEventListener("submit", (event) => {
+
+newTaskForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-  
     if (!newTaskTitle) {
         return;
     }
 
-    const title = newTaskTitle?.value.trim();
+    const title = newTaskTitle.value.trim();
 
-    addTask(title);
+    if (!title) {
+        return;
+    }
+
+    await addTask(title);
 
     newTaskTitle.value = "";
 
     renderDashboard();
 });
+
+async function initializeDashboard(): Promise<void> {
+    await loadTasks();
+    renderDashboard();
+}
+
+
 
 function renderStatistics(): void {
     const tasks = getTasksForSelectedList();
@@ -63,20 +76,29 @@ function renderTasks(): void {
 
     tasks.forEach((task) => {
         const listItem = document.createElement("li");
-
         const checkbox = document.createElement("input");
+        const label = document.createElement("span");
+        const deleteButton = document.createElement("button");
+
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
 
-        checkbox.addEventListener("change", () => {
-            setTaskCompleted(task.id, checkbox.checked);
+        checkbox.addEventListener("change", async () => {
+            await setTaskCompleted(task.id, checkbox.checked);
+            renderDashboard();
+        });
+        
+        label.textContent = task.title + " ";
+        
+        deleteButton.type = "button";
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener("click", async () => {
+            await deleteTask(task.id);
             renderDashboard();
         });
 
-        const label = document.createElement("span");
-        label.textContent = task.title;
-
-        listItem.append(checkbox, label);
+        listItem.append(checkbox, label, deleteButton);
         taskList.appendChild(listItem);
     });
 }
@@ -117,5 +139,4 @@ function renderTaskLists(): void {
     });
 }
 
-
-renderDashboard();
+initializeDashboard();
